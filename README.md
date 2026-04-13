@@ -1,4 +1,4 @@
-🌦️ Weather Dashboard - DevChallenges
+🌦️ Weather Dashboard 
 Este es un tablero de clima moderno y responsivo que permite a los usuarios consultar las condiciones meteorológicas actuales y el pronóstico para los próximos 5 días de cualquier ciudad del mundo.
 
 !
