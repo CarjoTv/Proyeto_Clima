@@ -11,7 +11,8 @@ import locationOnIcon from '../assets/location_on.svg'
 export default function Home() {
   const {
     query, setQuery, weather, forecast, loading, error,
-    locationCity, unit, setUnit, handleSearch, handleCurrentLocation
+    locationCity, unit, setUnit, handleSearch, handleCurrentLocation,
+    cityOptions, handleSelectCity
   } = useWeather()
 
   const currentDate = weather 
@@ -22,11 +23,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#100E1D] text-[#E7E7EB] flex flex-col lg:flex-row">
-      
-      {/* Sidebar Izquierdo: Aquí vive el fondo de nubes */}
       <aside className="w-full lg:w-[460px] bg-[#1E213A] p-6 lg:p-10 flex flex-col overflow-hidden relative">
         <div className="flex justify-between items-center mb-10">
-          <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
+          <SearchBar 
+            query={query} 
+            setQuery={setQuery} 
+            onSearch={handleSearch}
+            options={cityOptions}
+            onSelect={handleSelectCity}
+          />
           <button 
             onClick={handleCurrentLocation} 
             className="w-10 h-10 rounded-full bg-[#6E707A] flex items-center justify-center hover:bg-gray-500 transition shadow-lg"
@@ -51,7 +56,6 @@ export default function Home() {
         )}
       </aside>
 
-      {/* Contenido Principal Derecho */}
       <main className="flex-1 px-6 py-12 lg:px-32 flex flex-col max-w-[1000px] mx-auto">
         <div className="flex justify-end mb-8">
           <UnitToggle unit={unit} setUnit={setUnit} />
