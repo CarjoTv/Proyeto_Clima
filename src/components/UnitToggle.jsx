@@ -1,18 +1,17 @@
 export default function UnitToggle({ unit, setUnit }) {
   return (
-    <div className="inline-flex rounded-3xl bg-slate-900/90 p-2 shadow-inner shadow-slate-950/40 ring-1 ring-white/5">
+    <div className="flex gap-3">
       {['C', 'F'].map((option) => (
         <button
           key={option}
-          type="button"
           onClick={() => setUnit(option)}
-          className={`rounded-3xl px-4 py-2 text-sm font-semibold transition ${
+          className={`w-10 h-10 rounded-full font-bold text-lg flex items-center justify-center transition-colors ${
             unit === option
-              ? 'bg-cyan-500 text-slate-950'
-              : 'bg-transparent text-slate-300 hover:bg-slate-800'
+              ? 'bg-[#E1E1E6] text-[#110E3C]'
+              : 'bg-[#585676] text-[#E7E7EB] hover:bg-[#6E707A]'
           }`}
         >
-          {option}
+          °{option}
         </button>
       ))}
     </div>

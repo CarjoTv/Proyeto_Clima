@@ -25,7 +25,6 @@ export async function getWeatherByCity(city) {
       lang: 'es',
     },
   })
-
   return response.data
 }
 
@@ -40,7 +39,6 @@ export async function getWeatherByCoords(lat, lon) {
       lang: 'es',
     },
   })
-
   return response.data
 }
 
@@ -57,25 +55,24 @@ export async function getForecastByCoords(lat, lon) {
   })
 
   const timezoneOffset = response.data.city.timezone
-  const today = new Date(Date.now() + timezoneOffset * 1000).toISOString().slice(0, 10)
   const daily = {}
 
   response.data.list.forEach((item) => {
     const localDate = new Date((item.dt + timezoneOffset) * 1000).toISOString().slice(0, 10)
-    if (localDate === today) return
-    if (!daily[localDate] || item.dt > daily[localDate].dt) {
-      daily[localDate] = item
+    if (!daily[localDate]) {
+      daily[localDate] = {
+        dt: item.dt,
+        timezone: timezoneOffset,
+        tempMin: item.main.temp_min,
+        tempMax: item.main.temp_max,
+        icon: item.weather[0].icon,
+        description: item.weather[0].description,
+      }
+    } else {
+      daily[localDate].tempMin = Math.min(daily[localDate].tempMin, item.main.temp_min)
+      daily[localDate].tempMax = Math.max(daily[localDate].tempMax, item.main.temp_max)
     }
   })
 
-  return Object.values(daily)
-    .slice(0, 5)
-    .map((item) => ({
-      dt: item.dt,
-      icon: item.weather[0].icon,
-      description: item.weather[0].description,
-      tempMin: item.main.temp_min,
-      tempMax: item.main.temp_max,
-      timezone: timezoneOffset,
-    }))
+  return Object.values(daily).slice(1, 6)
 }
