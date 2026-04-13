@@ -1,78 +1,49 @@
-function formatTime(timestamp, timezone) {
-  return new Date((timestamp + timezone) * 1000).toLocaleTimeString('es-ES', {
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
-
-function formatValue(value, unit) {
-  return unit === 'F' ? Math.round((value * 9) / 5 + 32) : Math.round(value)
-}
-
-export default function WeatherDetails({ weather, unit }) {
-  if (!weather) {
-    return null
-  }
-
-  const temperatureUnit = unit === 'C' ? '°C' : '°F'
+export default function WeatherDetails({ weather }) {
+  if (!weather) return null
 
   return (
-    <section className="space-y-6 rounded-[2rem] bg-slate-950/90 p-8 shadow-2xl shadow-slate-950/40 ring-1 ring-white/5 backdrop-blur-xl">
-      <div>
-        <h3 className="text-2xl font-semibold text-cyan-200">Today&apos;s Highlights</h3>
-        <p className="mt-2 text-sm text-slate-400">Los datos más relevantes del día.</p>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Wind status</p>
-          <p className="mt-4 text-4xl font-semibold text-white">{Math.round(weather.wind.speed * 3.6)} km/h</p>
-          <p className="mt-2 text-sm text-slate-400">{weather.wind.deg}°</p>
-        </div>
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Humidity</p>
-          <p className="mt-4 text-4xl font-semibold text-white">{weather.main.humidity}%</p>
-          <div className="mt-4 h-2 rounded-full bg-slate-800">
-            <div
-              className="h-2 rounded-full bg-cyan-400"
-              style={{ width: `${weather.main.humidity}%` }}
-            />
-          </div>
-          <div className="mt-3 flex justify-between text-xs text-slate-500">
-            <span>0%</span>
-            <span>50%</span>
-            <span>100%</span>
+    <section className="mt-12">
+      <h3 className="text-2xl font-bold text-[#E7E7EB] mb-8">Today's Highlights</h3>
+      <div className="grid gap-6 sm:grid-cols-2">
+        {/* Wind Status */}
+        <div className="bg-[#1E213A] p-6 flex flex-col items-center">
+          <p className="text-[#E7E7EB] font-medium">Wind status</p>
+          <p className="mt-2 text-6xl font-bold">{Math.round(weather.wind.speed)} <span className="text-4xl font-normal">mph</span></p>
+          <div className="mt-6 flex items-center gap-2">
+            {/* Flecha dinámica usando weather.wind.deg */}
+            <div 
+              className="w-7 h-7 rounded-full bg-[#ffffff33] flex items-center justify-center"
+              style={{ transform: `rotate(${weather.wind.deg}deg)` }}
+            >
+               ➤
+            </div>
+            <span className="text-sm">WSW</span>
           </div>
         </div>
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Visibility</p>
-          <p className="mt-4 text-4xl font-semibold text-white">{(weather.visibility / 1000).toFixed(2)} km</p>
+        
+        {/* Humidity con Barra de Progreso */}
+        <div className="bg-[#1E213A] p-6 flex flex-col items-center">
+          <p className="text-[#E7E7EB] font-medium">Humidity</p>
+          <p className="mt-2 text-6xl font-bold">{weather.main.humidity}%</p>
+          <div className="w-full max-w-[220px] mt-6">
+            <div className="flex justify-between text-[#A09FB1] text-xs font-bold mb-1">
+              <span>0</span><span>50</span><span>100</span>
+            </div>
+            <div className="w-full h-2 rounded-full bg-[#E7E7EB]">
+              <div className="h-full bg-[#FFEC65]" style={{ width: `${weather.main.humidity}%` }} />
+            </div>
+            <p className="text-right text-[#A09FB1] text-xs font-bold mt-1">%</p>
+          </div>
         </div>
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Air Pressure</p>
-          <p className="mt-4 text-4xl font-semibold text-white">{weather.main.pressure} mb</p>
-        </div>
-      </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Máxima</p>
-          <p className="mt-4 text-3xl font-semibold text-white">{formatValue(weather.main.temp_max, unit)}{temperatureUnit}</p>
+        {/* Visibility & Pressure */}
+        <div className="bg-[#1E213A] p-6 flex flex-col items-center justify-center">
+          <p className="text-[#E7E7EB] font-medium">Visibility</p>
+          <p className="mt-2 text-6xl font-bold">{(weather.visibility / 1609.34).toFixed(1)} <span className="text-4xl font-normal">miles</span></p>
         </div>
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Mínima</p>
-          <p className="mt-4 text-3xl font-semibold text-white">{formatValue(weather.main.temp_min, unit)}{temperatureUnit}</p>
-        </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Amanecer</p>
-          <p className="mt-4 text-lg font-semibold text-white">{formatTime(weather.sys.sunrise, weather.timezone)}</p>
-        </div>
-        <div className="rounded-[1.75rem] bg-slate-900/95 p-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Atardecer</p>
-          <p className="mt-4 text-lg font-semibold text-white">{formatTime(weather.sys.sunset, weather.timezone)}</p>
+        <div className="bg-[#1E213A] p-6 flex flex-col items-center justify-center">
+          <p className="text-[#E7E7EB] font-medium">Air Pressure</p>
+          <p className="mt-2 text-6xl font-bold">{weather.main.pressure} <span className="text-4xl font-normal">mb</span></p>
         </div>
       </div>
     </section>
