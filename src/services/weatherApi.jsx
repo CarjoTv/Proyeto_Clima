@@ -18,7 +18,7 @@ export async function getLocationCity() {
 // Nueva función para obtener hasta 3 opciones de ciudades
 export async function getCityOptions(query) {
   ensureEnv(OPENWEATHER_KEY, 'VITE_OPENWEATHER_KEY')
-  const response = await axios.get('http://api.openweathermap.org/geo/1.0/direct', {
+  const response = await axios.get('https://api.openweathermap.org/geo/1.0/direct', {
     params: {
       q: query,
       limit: 3,
