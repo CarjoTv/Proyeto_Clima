@@ -65,9 +65,7 @@ export default function Home() {
           <>
             <ForecastPanel forecasts={forecast} unit={unit} />
             <WeatherDetails weather={weather} />
-            <p className="text-center text-[#A09FB1] text-sm mt-auto pt-12">
-              Created by <span className="font-bold">Anthony Olguin</span> - devChallenges.io
-            </p>
+            
           </>
         )}
       </main>
