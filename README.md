@@ -1,16 +1,51 @@
-# React + Vite
+🌦️ Weather Dashboard - DevChallenges
+Este es un tablero de clima moderno y responsivo que permite a los usuarios consultar las condiciones meteorológicas actuales y el pronóstico para los próximos 5 días de cualquier ciudad del mundo.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+!
 
-Currently, two official plugins are available:
+🚀 Características
+Detección de ubicación: La app identifica automáticamente tu ciudad al iniciar mediante tu dirección IP.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Búsqueda avanzada: Buscador de ciudades con sugerencias en tiempo real para facilitar la selección.
 
-## React Compiler
+Pronóstico de 5 días: Visualización clara de las temperaturas máximas y mínimas para los días siguientes.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Cambio de unidades: Soporte para cambiar entre grados Celsius (°C) y Fahrenheit (°F).
 
-## Expanding the ESLint configuration
+Detalles detallados: Información sobre velocidad del viento (con dirección dinámica), humedad, visibilidad y presión atmosférica.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Diseño Responsivo: Adaptado para dispositivos móviles, tablets y computadoras de escritorio.
+
+🛠️ Tecnologías utilizadas
+React: Biblioteca principal para la interfaz de usuario.
+
+Tailwind CSS: Para el diseño y estilos modernos.
+
+Axios: Para realizar las peticiones a las APIs externas.
+
+OpenWeather API: Proveedor de los datos climáticos y geográficos.
+
+Ipinfo.io: Para la geolocalización inicial por IP.
+
+Vite: Herramienta de construcción rápida para el desarrollo.
+
+📂 Estructura del Proyecto
+src/components/: Contiene las piezas visuales de la app (SearchBar, ForecastPanel, etc.).
+
+src/hooks/: Contiene useWeather.jsx, que maneja toda la lógica y el estado de la aplicación.
+
+src/services/: Contiene weatherApi.jsx, encargado de las llamadas a las APIs externas.
+
+src/assets/: Imágenes, iconos y fondos utilizados.
+
+⚙️ Instalación y Configuración
+Clona este repositorio.
+
+Instala las dependencias: npm install.
+
+Crea un archivo .env en la raíz con tus llaves de API:
+
+Fragmento de código
+VITE_OPENWEATHER_KEY=tu_llave_aqui
+VITE_IPINFO_KEY=tu_llave_aqui
+Inicia el proyecto: npm run dev.
